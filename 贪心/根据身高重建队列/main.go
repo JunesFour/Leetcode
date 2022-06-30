@@ -5,19 +5,6 @@ import (
 	"sort"
 )
 
-type lessSort []int
-
-func (arr lessSort) Len() int {
-	return len(arr)
-}
-func (arr lessSort) Less(i, j int) bool {
-	return arr[i] > arr[j]
-}
-
-func (arr lessSort) Swap(i, j int) {
-	arr[i], arr[j] = arr[j], arr[i]
-}
-
 func reconstructQueue(people [][]int) (res [][]int) {
 	// 根据一维逆序，二维正序
 	sort.Slice(people, func(i, j int) bool {
