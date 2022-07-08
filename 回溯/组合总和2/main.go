@@ -28,6 +28,38 @@ func dfs(candidates []int, nums []int, target int, left int, res *[][]int) {
 	}
 }
 
+// 实现2
+
+func combinationSum21(candidates []int, target int) (res [][]int) {
+	var comb []int
+	// 因为不能重复，所以需要去重
+	sort.Ints(candidates)
+	var dfs func(target int, index int)
+	dfs = func(target int, index int) {
+		if target == 0 {
+			res = append(res, append([]int{}, comb...))
+			return
+		}
+		// 1. 在循环里面去重
+		// 2. 在循环里面把dfs(target, index + 1)这一步已经默认执行过了
+		for i := index; i < len(candidates); i++ {
+			// 去重
+			if i != index && candidates[i] == candidates[i-1] {
+				continue
+			}
+			// 剪枝
+			if target < candidates[i] {
+				return
+			}
+			comb = append(comb, candidates[i])
+			dfs(target-candidates[i], i+1)
+			comb = comb[:len(comb)-1]
+		}
+	}
+	dfs(target, 0)
+	return
+}
+
 func main() {
 
 }
